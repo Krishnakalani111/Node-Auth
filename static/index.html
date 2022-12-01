@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>registration form</h1>
+    <form id="reg-form">
+        <input type="text" id="username" autocomplete="off" placeholder="Username" />
+        <input type="password" id="password" placeholder="Password" />
+        <input type="submit" placeholder="Submit" />
+    </form>
+
+    <script>
+        const form= document.getElementById('reg-form');
+        form.addEventListener('submit',registerUser);
+
+        async function registerUser(event){
+            event.preventDefault()
+            const username=document.getElementById('username')
+            const password = document.getElementById('password')
+
+            //THE FETCH METHOD
+
+            /*Parameters: This method requires one parameter and accepts two parameters:
+
+            URL: It is the URL to which the request is to be made.
+            Options: It is an array of properties.It is an optional parameter.
+            Return Value: It returns a promise whether it is resolved or not.
+                The return data can be of the format JSON or XML.
+                It can be an array of objects or simply a single object.*/
+
+            const result= await fetch('/api/register',{         //OBJECT &ITS 3 PROPERTIES (METHOD,HEADERS,BODY)
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify({
+                    username,
+                    password
+                })
+            }).then((res)=>res.json())
+            console.log(result);
+
+        }
+    </script>
+</body>
+</html>
